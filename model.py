@@ -13,7 +13,7 @@ train_samples, validation_samples = train_test_split(samples, test_size=0.2)
 import cv2
 import numpy as np
 import sklearn
-
+ 
 def generator(samples, batch_size=32):
     num_samples = len(samples)
     while 1:
