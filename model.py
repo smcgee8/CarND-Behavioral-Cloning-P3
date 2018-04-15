@@ -1,12 +1,16 @@
 import os
 import csv
 
+folders = ['provided_data', 'generated_1']
+
 samples = []
-with open('../provided_data/driving_log.csv') as csvfile:
-    reader = csv.reader(csvfile)
-    next(reader)
-    for line in reader:
-        samples.append(line)
+for folder in folders:
+    with open('../' + folder + '/driving_log.csv') as csvfile:
+        reader = csv.reader(csvfile)
+        next(reader)
+        for line in reader:
+            line[7] = folder
+            samples.append(line)
 
 from sklearn.model_selection import train_test_split
 train_samples, validation_samples = train_test_split(samples, test_size=0.2)
@@ -27,7 +31,7 @@ def generator(samples, batch_size=32):
                 for i in range(3):
                     source_path = sample[i]
                     filename = source_path.split('/')[-1]
-                    current_path = '../provided_data/IMG/' + filename
+                    current_path = '../' + sample[7] + '/IMG/' + filename
                     image = cv2.imread(current_path)
                     images.append(image)
                 measurement = float(sample[3])
@@ -72,6 +76,6 @@ model.fit_generator(train_generator,
                     samples_per_epoch=len(train_samples),
                     validation_data=validation_generator,
                     nb_val_samples=len(validation_samples),
-                    nb_epoch=3)
+                    nb_epoch=5)
 model.save('model.h5')
 exit()
