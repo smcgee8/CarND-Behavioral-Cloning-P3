@@ -1,7 +1,7 @@
 import os
 import csv
 
-folders = ['provided_data']#,'generated_1', 'generated_2', 'generated_3', 'generated_4']
+folders = ['provided_data', 'generated_4']
 
 samples = []
 for folder in folders:
@@ -72,7 +72,7 @@ model.add(Dropout(0.5))
 model.add(Dense(10))
 model.add(Dense(1))
 
-model.compile(loss='mse', optimizer='adam')
+model.compile(loss='mean_absolute_error', optimizer='adam')
 model.fit_generator(train_generator,
                     steps_per_epoch=len(train_samples)/32,
                     epochs=3,
