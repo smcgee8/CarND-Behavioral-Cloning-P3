@@ -1,7 +1,7 @@
 import os
 import csv
 
-folders = ['provided_data', 'generated_4']
+folders = ['provided_data']
 
 samples = []
 for folder in folders:
@@ -36,8 +36,8 @@ def generator(samples, batch_size=32):
                     images.append(image)
                 measurement = float(sample[3])
                 measurements.append(measurement)
-                measurements.append(measurement + 0.2)
                 measurements.append(measurement - 0.2)
+                measurements.append(measurement + 0.2)
             augmented_images, augmented_measurements = [], []
             for image,measurement in zip(images, measurements):
                 augmented_images.append(image)
@@ -53,7 +53,7 @@ train_generator = generator(train_samples, batch_size=32)
 validation_generator = generator(validation_samples, batch_size=32)
 
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Lambda, Cropping2D, Dropout
+from keras.layers import Flatten, Dense, Lambda, Cropping2D
 from keras.layers.convolutional import Conv2D
 
 model = Sequential()
@@ -66,16 +66,14 @@ model.add(Conv2D(64,(3,3),activation="relu"))
 model.add(Conv2D(64,(3,3),activation="relu"))
 model.add(Flatten())
 model.add(Dense(100))
-model.add(Dropout(0.5))
 model.add(Dense(50))
-model.add(Dropout(0.5))
 model.add(Dense(10))
 model.add(Dense(1))
 
-model.compile(loss='mean_absolute_error', optimizer='adam')
+model.compile(loss='mse', optimizer='adam')
 model.fit_generator(train_generator,
                     steps_per_epoch=len(train_samples)/32,
-                    epochs=3,
+                    epochs=2,
                     verbose=1,
                     validation_data=validation_generator,
                     validation_steps=len(validation_samples)/32)
