@@ -46,6 +46,7 @@ def generator(samples, batch_size=32):
                 augmented_measurements.append(measurement*-1.0)
             X_train = np.array(augmented_images)
             y_train = np.array(augmented_measurements)
+            print(len(y_train))
             yield sklearn.utils.shuffle(X_train, y_train)
 
 # compile and train the model using the generator function
