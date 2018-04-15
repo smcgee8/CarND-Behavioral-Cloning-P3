@@ -1,7 +1,7 @@
 import os
 import csv
 
-folders = ['provided_data', 'generated_1']
+folders = ['provided_data', 'generated_1', 'generated_2', 'generated_3']
 
 samples = []
 for folder in folders:
@@ -55,7 +55,6 @@ validation_generator = generator(validation_samples, batch_size=32)
 from keras.models import Sequential
 from keras.layers import Flatten, Dense, Lambda, Cropping2D
 from keras.layers.convolutional import Convolution2D
-from keras.layers.pooling import MaxPooling2D
 
 model = Sequential()
 model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(160,320,3)))
