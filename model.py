@@ -28,7 +28,6 @@ def generator(samples, batch_size=32):
                     filename = source_path.split('/')[-1]
                     current_path = '../provided_data/IMG/' + filename
                     image = cv2.imread(current_path)
-                    print(image)
                     images.append(image)
                 measurement = float(sample[3])
                 measurements.append(measurement)
