@@ -4,6 +4,7 @@ import csv
 samples = []
 with open('../provided_data/driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
+    next(reader)
     for line in reader:
         samples.append(line)
 
