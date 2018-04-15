@@ -17,10 +17,9 @@ import sklearn
 def generator(samples, batch_size=32):
     num_samples = len(samples)
     while 1:
-        shuffle(samples)
+        samples = sklearn.utils.shuffle(samples)
         for offset in range(0, num_samples, batch_size):
             batch_samples = samples[offset:offset+batch_size]
-
             images = []
             measurements = []
             for sample in batch_samples:
@@ -34,17 +33,15 @@ def generator(samples, batch_size=32):
                 measurements.append(measurement)
                 measurements.append(measurement + 0.2)
                 measurements.append(measurement - 0.2)
-
-        augmented_images, augmented_measurements = [], []
-        for image,measurement in zip(images, measurements):
-            augmented_images.append(image)
-            augmented_measurements.append(measurement)
-            augmented_images.append(cv2.flip(image,1))
-            augmented_measurements.append(measurement*-1.0)
-
-        X_train = np.array(augmented_images)
-        y_train = np.array(augmented_measurements)
-        yield sklearn.utils.shuffle(X_train, y_train)
+            augmented_images, augmented_measurements = [], []
+            for image,measurement in zip(images, measurements):
+                augmented_images.append(image)
+                augmented_measurements.append(measurement)
+                augmented_images.append(cv2.flip(image,1))
+                augmented_measurements.append(measurement*-1.0)
+            X_train = np.array(augmented_images)
+            y_train = np.array(augmented_measurements)
+            yield sklearn.utils.shuffle(X_train, y_train)
 
 # compile and train the model using the generator function
 train_generator = generator(train_samples, batch_size=32)
