@@ -21,6 +21,7 @@ import sklearn
 
 def generator(samples, batch_size=32):
     num_samples = len(samples)
+    print(num_samples)
     while 1:
         samples = sklearn.utils.shuffle(samples)
         for offset in range(0, num_samples, batch_size):
