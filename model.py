@@ -26,7 +26,7 @@ def generator(samples, batch_size=32):
                 for i in range(3):
                     source_path = sample[i]
                     filename = source_path.split('/')[-1]
-                    current_path = '../data/IMG/' + filename
+                    current_path = '../provided_data/IMG/' + filename
                     image = cv2.imread(current_path)
                     print(image)
                     images.append(image)
