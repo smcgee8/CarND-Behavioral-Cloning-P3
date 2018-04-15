@@ -21,7 +21,6 @@ import sklearn
 
 def generator(samples, batch_size=32):
     num_samples = len(samples)
-    print(num_samples)
     while 1:
         samples = sklearn.utils.shuffle(samples)
         for offset in range(0, num_samples, batch_size):
@@ -47,7 +46,6 @@ def generator(samples, batch_size=32):
                 augmented_measurements.append(measurement*-1.0)
             X_train = np.array(augmented_images)
             y_train = np.array(augmented_measurements)
-            print(len(y_train))
             yield sklearn.utils.shuffle(X_train, y_train)
 
 # compile and train the model using the generator function
@@ -75,9 +73,9 @@ model.add(Dense(1))
 
 model.compile(loss='mse', optimizer='adam')
 model.fit_generator(train_generator,
-                    samples_per_epoch=len(train_samples),
+                    samples_per_epoch=len(train_samples)*6,
                     validation_data=validation_generator,
-                    nb_val_samples=len(validation_samples),
+                    nb_val_samples=len(validation_samples)*6,
                     nb_epoch=5)
 model.save('model.h5')
 exit()
