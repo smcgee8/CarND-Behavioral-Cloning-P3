@@ -13,7 +13,7 @@ train_samples, validation_samples = train_test_split(samples, test_size=0.2)
 import cv2
 import numpy as np
 import sklearn
- 
+
 def generator(samples, batch_size=32):
     num_samples = len(samples)
     while 1:
@@ -28,6 +28,7 @@ def generator(samples, batch_size=32):
                     filename = source_path.split('/')[-1]
                     current_path = '../data/IMG/' + filename
                     image = cv2.imread(current_path)
+                    print(image)
                     images.append(image)
                 measurement = float(sample[3])
                 measurements.append(measurement)
