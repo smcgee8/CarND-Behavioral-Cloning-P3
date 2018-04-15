@@ -9,7 +9,7 @@ for folder in folders:
         reader = csv.reader(csvfile)
         next(reader)
         for line in reader:
-            line[7] = folder
+            line.append(folder)
             samples.append(line)
 
 from sklearn.model_selection import train_test_split
