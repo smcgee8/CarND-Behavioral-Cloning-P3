@@ -1,7 +1,7 @@
 import os
 import csv
 
-folders = ['generated_1', 'generated_2', 'generated_4']
+folders = ['generated_1', 'generated_2', 'generated_4', 'generated_5']
 
 samples = []
 for folder in folders:
@@ -53,7 +53,7 @@ train_generator = generator(train_samples, batch_size=32)
 validation_generator = generator(validation_samples, batch_size=32)
 
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Lambda, Cropping2D
+from keras.layers import Flatten, Dense, Lambda, Cropping2D, Dropout
 from keras.layers.convolutional import Conv2D
 
 model = Sequential()
@@ -66,7 +66,9 @@ model.add(Conv2D(64,(3,3),activation="relu"))
 model.add(Conv2D(64,(3,3),activation="relu"))
 model.add(Flatten())
 model.add(Dense(100))
+model.add(Dropout(0.5))
 model.add(Dense(50))
+model.add(Dropout(0.5))
 model.add(Dense(10))
 model.add(Dense(1))
 
