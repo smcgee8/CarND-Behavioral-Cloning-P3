@@ -93,18 +93,23 @@ Other techniques I used included:
 #### These images show some of the problem areas my model encountered:
 
 Car getting to close to the edge
+
 ![Car getting to close to the edge](./close_to_edge.png)
 
 Car going out of bounds
+
 ![Car going out of bounds](./out_of_bounds.png)
 
 #### However, in the end, the model was able to steer the car through even some of the more tricky areas:
 
 Car going straight over bridge
+
 ![Car going straight over bridge](./bridge.png)
 
 Car making sharp turn near dirt shoulder area
+
 ![Car making sharp turn near dirt shoulder area](./sharp_dirt_turn.png)
 
 Car making sharp turn in red-checked area
+
 ![Car making sharp turn in red-checked area](./sharp_red_zone_turn.png)
