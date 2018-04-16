@@ -1,7 +1,7 @@
 import os
 import csv
 
-folders = ['generated_1', 'generated_2', 'generated_4', 'generated_5']
+folders = ['generated_1', 'generated_2', 'generated_4', 'generated_6']
 
 samples = []
 for folder in folders:
