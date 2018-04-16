@@ -40,14 +40,14 @@ model.add(Conv2D(48,(5,5),strides=(2,2),activation="relu"))
 model.add(Conv2D(64,(3,3),activation="relu"))
 model.add(Conv2D(64,(3,3),activation="relu"))
 model.add(Flatten())
-model.add(Dense(100))
-model.add(Dense(50))
-model.add(Dense(10))
+model.add(Dense(100,activation="relu"))
+model.add(Dropout(0.3))
+model.add(Dense(50,activation="relu"))
+model.add(Dropout(0.3))
+model.add(Dense(10,activation="relu"))
 model.add(Dense(1))
 
-My model is identical to the Nvidia architecture shown in the project instructions. It consists of a lambda layer for zero-basing, a cropping layer to shave 50 pixels from the top and 25 from the bottom, 5 2D Convolution layers, and 4 fully-connected layers. The convolution layers use relu activation functions.
-
-I experimented with changes to this architecture to see if I could improve it by adding max-pooling and drop-out. I ultimately decided to exclude these features because these changes did not seem to improve the performance nor did I see evidence that over-fitting was occurring without them.
+My model is similar to the Nvidia architecture shown in the project instructions. It consists of a lambda layer for zero-basing, a cropping layer to shave 50 pixels from the top and 25 from the bottom, 5 2D Convolution layers, and 4 fully-connected layers. The convolution layers and fully-connected layers use relu activation functions. I also added two Dropouts to reduce the potential for overfitting.
 
 #### 2. Attempts to reduce overfitting in the model
 
@@ -79,10 +79,19 @@ The final model architecture did not change from the initial architecture. The m
 
 Almost all of my included training runs were center-lane driving, although I tried driving at different speeds to create opportunities for recovery motions. I also did one training run in the opposite direction as suggested in the project instructions.
 
-There were two training sets that I excluded because they seemed to make performance worse. One was from the jungle track. My thinking was that if I trained a sufficiently big model on both sets of data, the same model could drive on both tracks. This turned out not to be the case. I'm not sure if it's because I didn't collect enough jungle data or if that track should be trained on a separate model. The other set I excluded was a training run where I deliberately staged recovery motions. Including that set in the training data resulted in a final model that chronically oversteered.
+There were two training sets that I excluded because they seemed to make performance worse. One was from the jungle track. My thinking was that if I trained a sufficiently big model on both sets of data, the same model could drive on both tracks. This turned out not to be the case. The other set I excluded was a training run where I deliberately staged recovery motions. Including that set in the training data resulted in a final model that chronically oversteered.
 
 Other techniques I used included:
 -Using a generator to batch the data and conserve memory
 -Flipping the images and angles to double the size of the data-set
 -Using the left and right camera images with the angle corrections suggested in the project instructions
 -Preprocessing the images by zero-basing them and cropping them
+
+These images show some of the problem areas my model encountered:
+![Car getting to close to the edge](./close_to_edge.png)
+![Car going out of bounds](./out_of_bounds.png)
+
+However, in the end, the model was able to steer the car through even some of the more tricky areas:
+![Car going straight over bridge](./bridge.png)
+![Car making sharp turn near dirt shoulder area](./sharp_dirt_turn.png)
+![Car making sharp turn in red-checked area](./sharp_red_zone_turn.png)
