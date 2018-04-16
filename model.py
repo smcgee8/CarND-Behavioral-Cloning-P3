@@ -66,17 +66,16 @@ model.add(Conv2D(64,(3,3),activation="relu"))
 model.add(Conv2D(64,(3,3),activation="relu"))
 model.add(Flatten())
 model.add(Dense(100, activation="relu"))
-model.add(Dropout(0.5))
-model.add(Dense(100, activation="relu"))
-model.add(Dropout(0.5))
-model.add(Dense(100, activation="relu"))
 model.add(Dropout(0.3))
+model.add(Dense(50, activation="relu"))
+model.add(Dropout(0.3))
+model.add(Dense(10, activation="relu"))
 model.add(Dense(1))
 
 model.compile(loss='mse', optimizer='adam')
 model.fit_generator(train_generator,
                     steps_per_epoch=len(train_samples)/32,
-                    epochs=3,
+                    epochs=5,
                     verbose=1,
                     validation_data=validation_generator,
                     validation_steps=len(validation_samples)/32)
