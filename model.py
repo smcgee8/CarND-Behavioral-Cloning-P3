@@ -32,7 +32,7 @@ def generator(samples, batch_size=32):
                     source_path = sample[i]
                     filename = source_path.split('/')[-1]
                     current_path = '../' + sample[7] + '/IMG/' + filename
-                    image = cv2.imread(current_path)
+                    image = cv2.cvtColor(cv2.imread(current_path), cv2.COLOR_BGR2RGB)
                     images.append(image)
                 measurement = float(sample[3])
                 measurements.append(measurement)
